@@ -39,5 +39,6 @@ public abstract class CubeController : MonoBehaviour
         rend = transform.parent.GetComponent<Renderer>();
         oldColor = rend.material.color;
         if (plr == null) plr = GameManager.plrGameObject;
+        if (plr == null) plr = FindObjectOfType<FirstPersonControllerr>().gameObject;
     }
 }

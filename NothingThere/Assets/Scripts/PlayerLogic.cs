@@ -38,6 +38,8 @@ public class PlayerLogic : MonoBehaviour
 
     public void AddHP(int hp)
     {
+        print(currentHealth);
+        print(hp);
         this.CurrentHealth = this.CurrentHealth + hp;
         UpdateHealthBar();
     }

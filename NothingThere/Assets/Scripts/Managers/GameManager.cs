@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
     private static void IdentifyObjects()
     {
         if (uiController == null) uiController = FindObjectOfType<UIController>();
-        if (plrGameObject == null) plrGameObject = FindObjectOfType<FirstPersonController>().gameObject;
+        //if (plrGameObject == null) plrGameObject = FindObjectOfType<FirstPersonController>().gameObject;
+        if (plrGameObject == null) plrGameObject = FindObjectOfType<RigidbodyFirstPersonController>().gameObject;
         plrCharacterController = plrGameObject.GetComponent<CharacterController>();
         uiController.IdentifyObjects();
     }
