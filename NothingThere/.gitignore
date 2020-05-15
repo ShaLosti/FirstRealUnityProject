@@ -1,3 +1,4 @@
+
 # Created by https://www.gitignore.io/api/unity
 # Edit at https://www.gitignore.io/?templates=unity
 
@@ -14,10 +15,10 @@
 /[Mm]emoryCaptures/
 
 # Never ignore Asset meta data
-![Aa]ssets/**/*.meta
+!/[Aa]ssets/**/*.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
-# [Aa]ssets/AssetStoreTools*
+# /[Aa]ssets/AssetStoreTools*
 
 # TextMesh Pro files
 [Aa]ssets/TextMesh*Pro/
@@ -64,5 +65,6 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+
 
 # End of https://www.gitignore.io/api/unity
