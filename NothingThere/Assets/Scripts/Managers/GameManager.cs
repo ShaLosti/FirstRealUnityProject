@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     {
         if (uiController == null) uiController = FindObjectOfType<UIController>();
         //if (plrGameObject == null) plrGameObject = FindObjectOfType<FirstPersonController>().gameObject;
-        if (plrGameObject == null) plrGameObject = FindObjectOfType<RigidbodyFirstPersonController>().gameObject;
+        if (plrGameObject == null) plrGameObject = FindObjectOfType<FirstPersonController>().gameObject;
         plrCharacterController = plrGameObject.GetComponent<CharacterController>();
         uiController.IdentifyObjects();
     }
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
             PawnManager.TeleportPawn(savePointPosition);
             UIController.StartLoadGame();
             plrGameObject.GetComponent<FirstPersonController>().IsPlrAllowMove = true;
-            plrGameObject.GetComponent<PlayerLogic>().DefaultValues();
+            plrGameObject.GetComponent<HpController>().DefaultValues();
             if (cubesForReset.Count > 0 && !(cubesForReset == null))
             {
                 foreach (var cube in cubesForReset)

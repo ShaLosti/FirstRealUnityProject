@@ -23,16 +23,19 @@ public class UIController : MonoBehaviour
         }
     }
 
+    public static GameObject MenuPanel { get => menuPanel; set => menuPanel = value; }
+    public static GameObject ScrollArea { get => scrollArea; set => scrollArea = value; }
+
     public void IdentifyObjects()
     {
         wayPoint = GameManager.FindObjectFromParentObject(gameObject, "WayPoint").GetComponent<WayPoint>();
         wayPoint.IdentifyObjects();
-        scrollArea = GameManager.FindObjectFromParentObject(gameObject, "ScrollArea");
+        ScrollArea = GameManager.FindObjectFromParentObject(gameObject, "ScrollArea");
         if (gameOverScreen == null) gameOverScreen = GameManager.FindObjectFromParentObject(gameObject, "GameOverScreen"); //game over screen when hp == 0
         if (startGameScreen == null) startGameScreen = GameManager.FindObjectFromParentObject(gameObject, "StartGameScreen"); //start screen when plr spawn
         if (scoreTextForUi == null) scoreTextForUi = GameManager.FindObjectFromParentObject(gameObject, "TextScore").GetComponent<TMPro.TextMeshProUGUI>(); //score right top
         if (hpFill == null) hpFill = GameManager.FindObjectFromParentObject(gameObject, "HealthBar").GetComponent<HPBarController>(); //hp left top
-        if (menuPanel == null) menuPanel = GameManager.FindObjectFromParentObject(gameObject, "Menu"); //menu panel on Escape button 
+        if (MenuPanel == null) MenuPanel = GameManager.FindObjectFromParentObject(gameObject, "Menu"); //menu panel on Escape button 
     }
 
     private void Start()
@@ -44,8 +47,8 @@ public class UIController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            menuPanel.SetActive(!menuPanel.activeSelf);
-            if (menuPanel.activeSelf)
+            MenuPanel.SetActive(!MenuPanel.activeSelf);
+            if (MenuPanel.activeSelf)
             {
                 DisablePanelTextForPlr();
                 GameManager.CursorSwitch(true);
@@ -72,17 +75,17 @@ public class UIController : MonoBehaviour
         gameOverScreen.SetActive(true);
     }
 
-    public static void ShowMessage(string text)
+    public static void ShowMessage(string text = "")
     {
         GameManager.AllowPlrMovementAndRotateSwitch(false);
         GameManager.CursorSwitch(true);
-        scrollArea.transform.parent.parent.gameObject.SetActive(true);
-        scrollArea.transform.GetChild(0).gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = text;
+        ScrollArea.transform.parent.parent.gameObject.SetActive(true);
+        ScrollArea.transform.GetChild(0).gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = text;
     }
 
     public static void DisablePanelTextForPlr()
     {
-        scrollArea.transform.parent.parent.gameObject.SetActive(false);
+        ScrollArea.transform.parent.parent.gameObject.SetActive(false);
         GameManager.AllowPlrMovementAndRotateSwitch(true);
         GameManager.CursorSwitch(false);
     }

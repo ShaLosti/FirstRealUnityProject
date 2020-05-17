@@ -9,13 +9,10 @@ public class NoteContorller : MonoBehaviour
     [SerializeField] private MeshRenderer render;
     [SerializeField] private Color32 outlineColor;
 
-    private Camera mainCamera;
-
     private RaycastHit hit;
 
     private void Start()
     {
-        mainCamera = Camera.main;
         if (text == null) text = "";
         if (plr == null) plr = FindObjectOfType<FirstPersonController>().gameObject;
         if (render == null) render = gameObject.GetComponentInChildren<MeshRenderer>();
@@ -28,7 +25,10 @@ public class NoteContorller : MonoBehaviour
     public void ShowMessageOnRayCast()
     {
         hit = RayCast.CameraRayCast();
-        if (hit.collider != null && hit.collider.gameObject == gameObject)
+        if (hit.collider != null
+            && hit.collider.gameObject == gameObject
+            && !UIController.MenuPanel.activeSelf
+            && !UIController.ScrollArea.transform.parent.parent.gameObject.activeSelf)
         {
             ShowOutline();
             if (Input.GetKeyDown(KeyCode.Mouse0))

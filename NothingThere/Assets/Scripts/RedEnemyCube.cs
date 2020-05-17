@@ -4,7 +4,7 @@ public class RedEnemyCube : CubeController
 {
     protected new void OnTriggerEnter(Collider other)
     {
-        PlayerLogic plrHP = other.GetComponent<PlayerLogic>();
+        ITakeDamage plrHP = other.GetComponent<ITakeDamage>();
         /*if (base.rend.material.color != base.newColor)
         {
             base.OnTriggerEnter(other);
@@ -17,8 +17,7 @@ public class RedEnemyCube : CubeController
         {
             if (base.newColor.Equals(new Color32(0, 0, 0, 0))) base.newColor = Color.white;
             base.OnTriggerEnter(other);
-
-            plrHP.AddHP(-1);
+            plrHP.TakeDamage(1);
         }
     }
 }

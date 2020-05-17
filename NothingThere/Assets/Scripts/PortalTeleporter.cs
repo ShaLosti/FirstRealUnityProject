@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PortalTeleporter : MonoBehaviour
 {
-    public CharacterController plr;
+    public GameObject plr;
     public Transform reciver;
 
     private bool plrIsOverlapping = false;
@@ -44,9 +44,9 @@ public class PortalTeleporter : MonoBehaviour
                 Camera.main.transform.Rotate(Vector3.up, rotationDiff);
 
                 Vector3 positionOffset = Quaternion.Euler(0f, rotationDiff, 0f) * portalToPlr;
-                plr.enabled = false;
+                //plr.enabled = false;
                 plr.transform.position = reciver.position + positionOffset;
-                plr.enabled = true;
+                //plr.enabled = true;
 
                 plrIsOverlapping = false;
             //}
