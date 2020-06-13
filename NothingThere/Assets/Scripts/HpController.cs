@@ -15,7 +15,7 @@ public class HpController : MonoBehaviour, ITakeDamage
     {
         CurrentHP = BaseHP = this.MaxHP = maxHP;
         healthBar = UIBarFill.GetComponent<IUIHealthBar>();
-        UpdateHealthBar();
+        DefaultValues();
     }
 
     public float CurrentHP { get => currentHP; set => currentHP = value; }
@@ -25,12 +25,12 @@ public class HpController : MonoBehaviour, ITakeDamage
     public void TakeDamage(int damage = 0)
     {
         CurrentHP -= damage;
-        healthBar.UpdateCurrentHPFill(currentHP);
+        UpdateHealthBar();
     }
     public void AddHP(int hp)
     {
         this.CurrentHP += hp;
-        healthBar.UpdateCurrentHPFill(currentHP);
+        UpdateHealthBar();
     }
 
     private void UpdateHealthBar()
@@ -53,11 +53,13 @@ public class HpController : MonoBehaviour, ITakeDamage
     public void AddMaxHP(int hp)
     {
         this.MaxHP += hp;
+        UpdateHealthBar();
     }
 
     public void UpdateBaseMaxHP(int value)
     {
         BaseHP = value;
+        UpdateHealthBar();
     }
 
     public void DefaultValues()

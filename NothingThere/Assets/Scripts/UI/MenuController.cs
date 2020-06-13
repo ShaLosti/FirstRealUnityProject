@@ -6,14 +6,14 @@ public class MenuController : MonoBehaviour
 {
     public void RunCubeLevel()
     {
-        PawnManager.TeleportPawn(-334, 19, -86);
+        PawnManager.TeleportPawn(new Vector3(-334, 19, -86), GameManager.plrGameObject);
     }
     public void RunPortalLevel()
     {
-        PawnManager.TeleportPawn(-269, 1.4f, -57);
+        PawnManager.TeleportPawn(new Vector3(-269, 1.4f, -57), GameManager.plrGameObject);
     }
     public void RunBaseLevel()
     {
-        PawnManager.TeleportPawn(7, 10, 9);
+        PawnManager.TeleportPawn(new Vector3(7, 10, 9), GameManager.plrGameObject);
     }
 }

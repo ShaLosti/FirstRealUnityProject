@@ -10,6 +10,7 @@ TagManager:
   - NoteTable
   - PushRigidByClick
   - InteractivCube
+  - SavePointZone
   layers:
   - Default
   - TransparentFX

@@ -7,13 +7,12 @@ public class GameManager : MonoBehaviour
     static public GameObject plrGameObject;
 
     [Header("Saves")]
-    static public Transform savePointPosition;
+    static public Vector3 savePointPosition;
 
     [Header("Cubes")]
     static public List<GameObject> cubesForReset = new List<GameObject>();
 
     static public UIController uiController;
-    static private CharacterController plrCharacterController;
 
     public void Awake()
     {
@@ -26,7 +25,6 @@ public class GameManager : MonoBehaviour
         if (uiController == null) uiController = FindObjectOfType<UIController>();
         //if (plrGameObject == null) plrGameObject = FindObjectOfType<FirstPersonController>().gameObject;
         if (plrGameObject == null) plrGameObject = FindObjectOfType<FirstPersonController>().gameObject;
-        plrCharacterController = plrGameObject.GetComponent<CharacterController>();
         uiController.IdentifyObjects();
     }
 
@@ -54,7 +52,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            PawnManager.TeleportPawn(savePointPosition);
+            print(savePointPosition);
+            PawnManager.TeleportPawn(savePointPosition, plrGameObject);
             UIController.StartLoadGame();
             plrGameObject.GetComponent<FirstPersonController>().IsPlrAllowMove = true;
             plrGameObject.GetComponent<HpController>().DefaultValues();

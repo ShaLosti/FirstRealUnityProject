@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RayCastToGameObject : MonoBehaviour
@@ -10,6 +11,7 @@ public class RayCastToGameObject : MonoBehaviour
 
     private int power = 10;
     private RaycastHit hit;
+    private Camera mainCamera;
 
     private void IdentifyIbjects()
     {
@@ -19,21 +21,20 @@ public class RayCastToGameObject : MonoBehaviour
     private void Start()
     {
         IdentifyIbjects();
+        mainCamera = Camera.main;
     }
-    void Update()
-    { 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+
+    private void OnMouseDown()
+    {
+        hit = RayCast.CameraRayCast();
+        if (hit.collider != null && (gameObjectToAttached.Contains(hit.collider.attachedRigidbody) || hit.collider.tag == "PushRigidByClick"))
         {
-            hit = RayCast.CameraRayCast();
-            if (hit.collider !=null && (gameObjectToAttached.Contains(hit.collider.attachedRigidbody) || hit.collider.tag == "PushRigidByClick"))
-            {
-                pushRigidBody(hit.collider.attachedRigidbody);
-            }
+            pushRigidBody(hit.collider.attachedRigidbody);
         }
     }
     private void pushRigidBody(Rigidbody rb)
     {
-        rb.AddForceAtPosition(transform.forward * power, hit.point, ForceMode.Impulse);
+        rb.AddForceAtPosition(mainCamera.transform.forward * power, hit.point, ForceMode.Impulse);
         UIController.AddScoreUIForFPP(1);
     }
 }

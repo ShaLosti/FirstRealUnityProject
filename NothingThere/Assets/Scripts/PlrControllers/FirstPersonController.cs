@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FirstPersonController : MonoBehaviour
+public class FirstPersonController : PortalTraveller
 {
     public Vector3 PreviousPosition { get; private set; }
     public bool IsPlrAllowMove { get; set; } = true;
@@ -172,5 +172,12 @@ public class FirstPersonController : MonoBehaviour
     public void EnableCursor(bool condit)
     {
         _mouseLook.SetCursorLock(!condit);
+    }
+
+    public override void Teleport(Transform fromPortal, Transform toPortal, Vector3 pos, Quaternion rot)
+    {
+        transform.position = pos;
+        Vector3 eulerRot = rot.eulerAngles;
+        Physics.SyncTransforms();
     }
 }
