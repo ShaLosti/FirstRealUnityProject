@@ -16,9 +16,9 @@ public abstract class CubeController : MonoBehaviour
         //animator.SetBool("isUsed", false);
     }
 
-    protected void OnTriggerEnter(Collider other)
+    protected void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject == plr)
+        if (collision.gameObject == plr)
         {
             //animator.SetBool("isUsed", true);
             GameManager.cubesForReset.Add(gameObject);
@@ -36,7 +36,7 @@ public abstract class CubeController : MonoBehaviour
         //plr = FindObjectOfType<FirstPersonController>().gameObject;
         //animator = transform.parent.GetComponent<Animator>();
 
-        rend = transform.parent.GetComponent<Renderer>();
+        rend = transform.GetComponent<Renderer>();
         oldColor = rend.material.color;
         if (plr == null) plr = GameManager.plrGameObject;
         if (plr == null) plr = FindObjectOfType<FirstPersonController>().gameObject;

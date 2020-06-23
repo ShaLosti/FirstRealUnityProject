@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            print(savePointPosition);
             PawnManager.TeleportPawn(savePointPosition, plrGameObject);
             UIController.StartLoadGame();
             plrGameObject.GetComponent<FirstPersonController>().IsPlrAllowMove = true;

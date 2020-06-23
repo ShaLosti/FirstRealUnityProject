@@ -11,8 +11,8 @@ public class FirstPersonController : PortalTraveller
     // Current move speed for rigidbody, override by _wayPoint or _runSpeed
     private float _movementSpeed;
 
-    // Jump force Vectro3.up * __jumpForce. Override velocity
-    [SerializeField] float __jumpForce = 5f;
+    // Jump force Vectro3.up * jumpForce. Override velocity
+    [SerializeField] float jumpForce = 5f;
     // If that bool variable true - plr doing jump FixedUpdate()
     private bool _jump = false;
     // Variable store distance from center of collider devided by 2. Need for rayCast wich check is grounded plr
@@ -58,31 +58,33 @@ public class FirstPersonController : PortalTraveller
 
     private void Update()
     {
-        if (IsPlrAllowMove)
+        if (!IsPlrAllowMove)
         {
-            groundCheck();
-            getInputs();
-            rotateView();
-            PreviousPosition = transform.position; //for teleporter
+            return;
         }
+        getInputs();
+        rotateView();
+        PreviousPosition = transform.position; //for teleporter
     }
 
     private void FixedUpdate()
     {
-        if (IsPlrAllowMove)
+        if (!IsPlrAllowMove)
         {
-            if (_jump)
-            {
-                _rb.velocity += (Vector3.up * __jumpForce);
-                _jump = false;
-            }
-
-            _deltaPosition = ((transform.forward * plrInput.Vertical) + (transform.right * plrInput.Horizontal)) * _movementSpeed * Time.fixedDeltaTime;
-            float normaliseSlope = (_slopeAngle / 90f) * -1f;
-            _deltaPosition += (_deltaPosition * normaliseSlope);
-
-            _rb.MovePosition(_rb.position + _deltaPosition);
+            return;
         }
+
+        if (_jump)
+        {
+            _rb.velocity += (Vector3.up * jumpForce * Time.fixedDeltaTime);
+            _jump = false;
+        }
+
+        _deltaPosition = ((transform.forward * plrInput.Vertical) + (transform.right * plrInput.Horizontal)) * _movementSpeed * Time.fixedDeltaTime;
+        float normaliseSlope = (_slopeAngle / 90f) * -1f;
+        _deltaPosition += (_deltaPosition * normaliseSlope);
+
+        _rb.MovePosition(_rb.position + _deltaPosition);
     }
 
     private void SetPerspectiveStatementDelegate()
@@ -144,7 +146,16 @@ public class FirstPersonController : PortalTraveller
         else if (Input.GetButtonUp("Sprint"))
             _movementSpeed = _wayPoint;
 
-        _jump = (Input.GetButtonDown("Jump") || Input.GetButtonUp("Jump")) && states.stateForMove == PlrStates.StatesForMove.onGround;
+        if (Input.GetButtonDown("Jump") || Input.GetButtonUp("Jump"))
+        {
+            groundCheck();
+            if (states.stateForMove == PlrStates.StatesForMove.onGround)
+                _jump = true;
+        }
+        else
+        {
+            _jump = false;
+        }
     }
     private void GroundCheck()
     {

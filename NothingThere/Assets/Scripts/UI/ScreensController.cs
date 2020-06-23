@@ -8,7 +8,6 @@ public class ScreensController : MonoBehaviour
     {
         if(gameObject.name == "GameOverScreen")
         {
-            print(1);
             GameManager.Restart(false);
         }
         gameObject.SetActive(false);
